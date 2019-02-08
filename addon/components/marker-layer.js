@@ -1,10 +1,10 @@
 import { observer } from '@ember/object';
-import BaseLayer from 'ember-leaflet/components/base-layer';
+import InteractiveLayer from 'ember-leaflet/components/interactive-layer';
 import DraggabilityMixin from 'ember-leaflet/mixins/draggability';
 import DivOverlayableMixin from 'ember-leaflet/mixins/div-overlayable';
 import toLatLng from 'ember-leaflet/macros/to-lat-lng';
 
-export default BaseLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
+export default InteractiveLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
 
   leafletRequiredOptions: Object.freeze([
     'location'
@@ -16,8 +16,7 @@ export default BaseLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
   ]),
 
   leafletEvents: Object.freeze([
-    'click', 'dblclick', 'mousedown', 'mouseover', 'mouseout',
-    'contextmenu', 'dragstart', 'drag', 'dragend', 'move', 'moveend',
+    'dragstart', 'drag', 'dragend', 'move', 'moveend',
     'remove', 'add', 'popupopen', 'popupclose'
   ]),
 
@@ -33,6 +32,7 @@ export default BaseLayer.extend(DraggabilityMixin, DivOverlayableMixin, {
 
   // icon observer separated from generated (leaflet properties) due to a
   // leaflet bug where draggability is lost on icon change
+  // eslint-disable-next-line ember/no-observers
   iconDidChange: observer('icon', function() {
     this._layer.setIcon(this.get('icon'));
     if (!this._layer.dragging) { return; }
