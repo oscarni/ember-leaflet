@@ -26,6 +26,10 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
     'contextmenu', 'add', 'remove', 'popupopen', 'popupclose'
   ]),
 
+  leafletProperties: Object.freeze([
+    'style'
+  ]),
+
   didUpdateAttrs() {
     this._super(...arguments);
 
@@ -43,6 +47,11 @@ export default BaseLayer.extend(DivOverlayableMixin, StyleMixin, {
     // recall that GeoJSON layers are actually layer groups -- we have to clear
     // their contents first...
     this._layer.clearLayers();
+
+    // we need to update the group layers options before re-adding geojson
+    // otherwise, they wouldn't get the changes that could be happening meanwhile
+    this.notifyPropertyChange('options');
+    this._layer.options = this.get('options');
 
     if (geoJSON) {
       // ...then add new data to recreate the child layers in an updated form

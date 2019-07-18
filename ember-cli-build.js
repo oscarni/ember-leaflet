@@ -1,19 +1,16 @@
 'use strict';
 
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
-const crawl = require('prember-crawler');
 
 module.exports = function(defaults) {
   let app = new EmberAddon(defaults, {
     fingerprint: {
       exclude: ['assets/images']
     },
-    'ember-prism': {
-      'theme': 'none',
-      'components': ['scss', 'javascript', 'handlebars', 'markup-templating', 'bash']
-    },
-    prember: {
-      urls: crawl
+    'ember-cli-favicon': {
+      faviconsConfig: {
+        path: '/ADDON_DOCS_ROOT_URL'
+      }
     }
   });
 

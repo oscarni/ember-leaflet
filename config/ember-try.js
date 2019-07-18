@@ -9,6 +9,7 @@ module.exports = function() {
     getChannelURL('canary')
   ]).then((urls) => {
     return {
+      useYarn: true,
       scenarios: [
         {
           name: 'ember-lts-2.18-leaflet-0.7.7',
@@ -19,6 +20,7 @@ module.exports = function() {
             devDependencies: {
               '@ember/jquery': '^0.5.1',
               'ember-source': '~2.18.0',
+              'ember-angle-bracket-invocation-polyfill': '^1.2.3',
               'leaflet': '~0.7.7'
             }
           }
@@ -31,6 +33,7 @@ module.exports = function() {
           npm: {
             devDependencies: {
               '@ember/jquery': '^0.5.1',
+              'ember-angle-bracket-invocation-polyfill': '^1.2.3',
               'ember-source': '~2.18.0'
             }
           }
