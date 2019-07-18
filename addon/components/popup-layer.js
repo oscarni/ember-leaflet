@@ -99,10 +99,16 @@ export default DivOverlayLayer.extend({
         }
       });
     };
+    // we need to user `layerremove` event becase it's the only one that fires
+    // *after* the popup was completely removed from the map
+    let parentComponent = this.get('parentComponent');
+    let map = parentComponent._layer._map;
+    map && map.addEventListener('layerremove', this._onLayerRemove, this);
   },
 
   _removePopupListeners() {
     let parentComponent = this.get('parentComponent');
-    parentComponent._layer._map.removeEventListener('layerremove', this._onLayerRemove, this);
+    let map = parentComponent._layer._map;
+    map && map.removeEventListener('layerremove', this._onLayerRemove, this);
   }
 });
